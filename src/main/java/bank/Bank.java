@@ -7,15 +7,21 @@ public class Bank {
     private final Map<Person, BankAccount> bankAccounts = new HashMap<>();
 
     public void registerCustomer(Person person, double initialDeposit) {
-        // TODO: Create and store a new Customer based on the person.Person
+        bankAccounts.put(person, new BankAccount(person, initialDeposit));
     }
 
-    public boolean transfer(Person from, Person to, double amount) {
-        // TODO: Check if both are registered customers and perform transfer
-        return false;
-    }
+  public boolean transfer(Person from, Person to, double amount) {
+    BankAccount fromAccount = bankAccounts.get(from);
+    BankAccount toAccount = bankAccounts.get(to);
 
-    public double getBalance(Person customer) {
+    if (fromAccount == null || toAccount == null) return false;
+    if (!fromAccount.withdraw(amount)) return false;
+
+    toAccount.deposit(amount);
+    return true;
+  }
+
+  public double getBalance(Person customer) {
         if (bankAccounts.containsKey(customer)) {
             return bankAccounts.get(customer).getBalance();
         }
