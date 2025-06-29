@@ -15,13 +15,15 @@ public class BankAccount {
         return balance;
     }
 
-    public void deposit(double amount) {
-        balance += amount;
-    }
+  public void deposit(double amount) {
+    this.balance += amount;
+  }
 
-    public boolean withdraw(double amount) {
-        if(balance >= amount)
-            return true;
-        return false;
+  public boolean withdraw(double amount) {
+    if (this.balance >= amount) {
+      this.balance -= amount;
+      return true;
     }
+    return false;
+  }
 }
